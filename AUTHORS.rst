@@ -6,5 +6,4 @@ Authors
 
 Contributors
 ------------
-
-None yet. Why not be the first?
+* Sadha Chilukoori - <srchilukoori@gmail.com>
