@@ -32,7 +32,7 @@ def auth_required(f):
 
 class TDClient:
     def __init__(
-        self, access_token=None, refresh_token=None, app_id=None, authenticated=True
+        self, access_token=None, refresh_token=None, app_id=None, authenticated=True, account_id=None
     ):
         if authenticated:
             self.access_token = self._get_auth_var(access_token, "TDAM_ACCESS_TOKEN")
@@ -40,6 +40,7 @@ class TDClient:
 
         self.app_id = self._get_auth_var(app_id, "TDAM_APP_ID")
         self._authenticated = authenticated
+        self._acc_id = self._get_auth_var(account_id, "TDAM_ACC_ID")
 
     def _get_auth_var(self, param: str, env_var: str) -> str:
         if param is None:
@@ -290,3 +291,18 @@ class TDClient:
             if expiry in e:
                 out = Option(data[e][Option.float_to_strike(strike)][0])
                 return out
+
+    def get_watchlists(
+        self
+    ):
+        """
+        ------------------------------------------------------------------------
+        Returns all watchlists available on the account
+        ------------------------------------------------------------------------
+        """
+        params = {}
+        resp: requests.Response = self._get_with_retry(Urls.watchlist % self._acc_id, params=params)
+
+        output = resp.json()
+
+        return output

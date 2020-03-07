@@ -17,3 +17,5 @@ class Urls:
 
     hours = _base + "marketdata/hours"
     movers = _base + "marketdata/%s/movers"
+
+    watchlist = _base + "accounts/%s/watchlists"
